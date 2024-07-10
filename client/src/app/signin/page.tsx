@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import { useState } from "react";
 import { PiAirplaneTakeoffFill } from "react-icons/pi";
 import { FaGithub } from "react-icons/fa";
@@ -68,7 +68,7 @@ function page() {
       <div className="bg-gradient-to-r from-gray-950 via-gray-800 to-gray-700  rounded-md md:w-[50%]  flex flex-col justify-between gap-4 p-8">
         <div className="flex flex-col gap-2">
           <div className="flex justify-center text-sm text-white">
-            Register with
+            Login with
           </div>
           <div className="flex gap-1">
             <button className="bg-slate-400 hover:bg-slate-500 w-full p-2 rounded-md">
@@ -92,30 +92,7 @@ function page() {
 
         <div>
           <form action="" className="flex flex-col gap-4">
-            <div className="flex justify-between gap-2 flex-col md:flex-row">
-              <div className="flex flex-col w-full">
-                <label htmlFor="firstname" className="text-sm text-white">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  name="firstname"
-                  id="firstname"
-                  className="rounded-md text-white bg-gray-500 p-1"
-                />
-              </div>
-              <div className="flex flex-col w-full">
-                <label htmlFor="username" className="text-sm text-white">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  className="rounded-md text-white bg-gray-500 p-1"
-                />
-              </div>
-            </div>
+           
             <div className="flex flex-col w-full">
               <label htmlFor="username" className="text-sm text-white">
                 Username
@@ -127,17 +104,7 @@ function page() {
                 className="rounded-md text-white bg-gray-500 p-1"
               />
             </div>
-            <div className="flex flex-col w-full">
-              <label htmlFor="email" className="text-sm text-white">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="rounded-md text-white bg-gray-500 p-1"
-              />
-            </div>
+         
             <div className="flex flex-col w-full">
               <label htmlFor="password" className="text-sm text-white">
                 Password
@@ -151,15 +118,18 @@ function page() {
             </div>
             <div className="flex justify-center w-full">
               <button className="bg-yellow-400 w-full p-1 rounded-md">
-                Sign Up
+                Sign In
               </button>
             </div>
           </form>
         </div>
 
         <div className="flex justify-center text-white gap-1 flex-col md:flex-row">
-          <div>Already have an account?</div>
-          <div className="text-yellow-400 cursor-pointer">Login</div>
+          <div>Don't have an account?</div>
+          <Link href="/signup">
+            <div className="text-yellow-400 cursor-pointer">Sign Up</div>
+          </Link>
+          
         </div>
       </div>
     </div>
