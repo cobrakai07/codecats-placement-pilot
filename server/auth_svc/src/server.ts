@@ -1,6 +1,7 @@
 // libs
 import express, { Request, Response, NextFunction } from "express";
 import http from "http";
+import cookieParser from "cookie-parser";
 
 // file's and utils.
 import "./config/logging";
@@ -29,7 +30,7 @@ export const main = () => {
   // middlewares
   application.use(loggingHandler);
   application.use(corsHandler);
-  //  application.use(routeNotFound);
+  application.use(cookieParser());
 
   logging.info("--------------------------------------------");
   logging.info("Define Controller Routing");
@@ -64,5 +65,6 @@ export const main = () => {
 // simple shutdown function to stop server (mostly used by testin libs)
 export const shutdown = (callback: any) =>
   httpServer && httpServer.close(callback);
+
 // calling
 main();

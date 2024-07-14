@@ -16,10 +16,4 @@ export const SERVER = {
   SERVER_PORT,
 };
 
-const ACCESS_KEY = process.env.JWT_ACCESS_KEY || "12313456165";
-const REFRESH_KEY = process.env.JWT_REFRESH_KEY || "12313456165";
-
-export const SECRET_KEY = {
-  ACCESS_KEY,
-  REFRESH_KEY,
-};
+export const SECRET_KEY = process.env.JWT_SECRET_KEY || "12313456165"; 
