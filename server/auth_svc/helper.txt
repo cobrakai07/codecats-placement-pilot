@@ -1,0 +1,3 @@
+SWAGGER ROUTE = {server}/api/docs
+
+

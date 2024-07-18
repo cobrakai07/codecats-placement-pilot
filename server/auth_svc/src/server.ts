@@ -51,8 +51,8 @@ export const main = () => {
       return res.status(200).json({ message: "Server is up and running." });
     }
   );
-  application.use("/api/v1/users", userRouter);
-  application.use("/api/v1/tests", testRouter);
+  application.use("/api/v1/user", userRouter);
+  application.use("/api/v1/test", testRouter);
   application.use("/api/v1/submission", submissionRouter);
   application.use(routeNotFound);
 
