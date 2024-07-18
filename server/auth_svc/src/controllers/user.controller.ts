@@ -10,29 +10,31 @@ import {
 } from "../utils/user.helper";
 import { IRequest } from "../utils/interface.helper";
 
-
 // public route
 // POST @ /api/v1/user/reigster
 const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password, email } = await req.body;
     if (!username || !password || !email) {
-      res.status(401).json("Invalid Request");
+      res.sendStatus(400);
     }
 
     const user_exists = await getUserByEmail(email);
     if (user_exists) {
-      res.status(200).json("User already exists with following credentials!");
+      res.status(200).json("User already exists");
     }
 
-    const new_user = await createUser(username, password, email);
+    const new_user = await createUser(email, username, password);
     if (new_user) {
       const token_payload = { id: new_user._id };
       settoken(res, token_payload);
       res.sendStatus(201);
-    } else res.status(500).json("Internal Server Error!");
+    } else {
+      res.sendStatus(500);
+    }
   } catch (e) {
-    logging.error("Something went wrong in register controller.");
+    res.sendStatus(500);
+    logging.error("Something went wrong in register controller.", e);
   }
 };
 
@@ -42,7 +44,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = await req.body;
     if (!email || !password) {
-      res.status(401).json("Invalid request");
+      res.sendStatus(400);
     }
 
     if (await checkUserCredentials(email, password)) {
@@ -51,7 +53,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       settoken(res, token_payload);
       res.sendStatus(200);
     } else {
-      res.status(401).json("User not found with the following credentials");
+      res.sendStatus(401);
     }
   } catch (e) {
     logging.error("Something went wrong in login controller.");
