@@ -1,15 +1,24 @@
 // libs
 import express, { Request, Response, NextFunction } from "express";
 import http from "http";
+import cookieParser from "cookie-parser";
 
 // file's and utils.
 import "./config/logging";
 import { SERVER } from "./config/config";
+import connect_db from "./config/db";
+// swagger imports
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
+// middlewares
 import { loggingHandler } from "./middleware/logging.middleware";
 import { corsHandler } from "./middleware/cors.middleware";
 import { routeNotFound } from "./middleware/route.middleware";
-import connect_db from "./config/db";
-import appRouter from "./routes/user.route";
+// routes
+import userRouter from "./routes/user.route";
+import testRouter from "./routes/test.route";
+import submissionRouter from "./routes/submission.route";
+
 // initializing
 export const application = express();
 export let httpServer: ReturnType<typeof http.createServer>;
@@ -29,7 +38,8 @@ export const main = () => {
   // middlewares
   application.use(loggingHandler);
   application.use(corsHandler);
-  //  application.use(routeNotFound);
+  application.use(cookieParser());
+  application.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   logging.info("--------------------------------------------");
   logging.info("Define Controller Routing");
@@ -41,7 +51,9 @@ export const main = () => {
       return res.status(200).json({ message: "Server is up and running." });
     }
   );
-  application.use(appRouter);
+  application.use("/api/v1/user", userRouter);
+  application.use("/api/v1/test", testRouter);
+  application.use("/api/v1/submission", submissionRouter);
   application.use(routeNotFound);
 
   logging.info("--------------------------------------------");
@@ -64,5 +76,6 @@ export const main = () => {
 // simple shutdown function to stop server (mostly used by testin libs)
 export const shutdown = (callback: any) =>
   httpServer && httpServer.close(callback);
+
 // calling
 main();
