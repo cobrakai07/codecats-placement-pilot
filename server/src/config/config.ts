@@ -17,3 +17,11 @@ export const SERVER = {
 };
 
 export const SECRET_KEY = process.env.JWT_SECRET_KEY || "12313456165"; 
+
+export const EMAIL_USERNAME = process.env.EMAIL_USERNAME
+export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD
+
+export const EMAIL_CREDS = {
+  EMAIL_PASSWORD,
+  EMAIL_USERNAME
+}
