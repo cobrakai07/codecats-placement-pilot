@@ -9,6 +9,7 @@ import {
   getTestsByCreatorId,
   updateTest,
 } from "../controllers/test.controller";
+import isAuthorized from "../middleware/isauthorized.middleware";
 
 const testRouter = Router();
 
@@ -57,7 +58,7 @@ testRouter.get("/all", getAllTests);
  *         description: Server error
  */
 
-testRouter.get("/user", isAuthenticated, getTestsByCreatorId);
+testRouter.get("/user", isAuthenticated, isAuthorized, getTestsByCreatorId);
 
 /**
  * @swagger
@@ -98,7 +99,7 @@ testRouter.get("/user", isAuthenticated, getTestsByCreatorId);
  *       500:
  *         description: Server error
  */
-testRouter.post("/create", isAuthenticated, createTest);
+testRouter.post("/create", isAuthenticated, isAuthorized, createTest);
 /**
  * @swagger
  * /api/v1/tests/{id}:
@@ -156,8 +157,8 @@ testRouter.post("/create", isAuthenticated, createTest);
 testRouter
   .route("/test/:id")
   .get(isAuthenticated, getTestById)
-  .delete(isAuthenticated, deleteTest)
-  .patch(isAuthenticated, updateTest);
+  .delete(isAuthenticated, isAuthorized, deleteTest)
+  .patch(isAuthenticated, isAuthorized, updateTest);
 
 /**
  * @swagger

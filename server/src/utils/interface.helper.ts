@@ -5,15 +5,10 @@ export interface UserInterface {
   username: string;
   email: string;
   createdAt: string;
+  role: string;
   updatedAt: string;
 }
 
 export interface IRequest extends Request {
-  user?: {
-    _id: string;
-    username: string;
-    email: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  user?: UserInterface;
 }
